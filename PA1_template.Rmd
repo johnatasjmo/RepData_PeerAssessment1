@@ -1,10 +1,11 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: 
+output:
   html_document:
     keep_md: true
 ---
 
+jmo start working
 
 ## Loading and preprocessing the data
 
@@ -12,6 +13,7 @@ output:
 
 ## What is mean total number of steps taken per day?
 
+ls
 
 
 ## What is the average daily activity pattern?
