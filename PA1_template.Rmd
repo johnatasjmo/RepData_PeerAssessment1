@@ -85,7 +85,24 @@ median_steps
 
 #  What is the average daily activity pattern?
 
+Calculating the average steps
+```{r}
+interval <- data %>%
+  filter(!is.na(steps)) %>%
+  group_by(interval) %>%
+  summarize(steps = mean(steps))
+```
 
+Ploting the graph
+```{r}
+ggplot(interval, aes(x=interval, y=steps)) +
+  geom_line(color = "firebrick")
+```
+
+Finding the max step
+```{r}
+interval[which.max(interval$steps),]
+```
 
 ## Imputing missing values
 
