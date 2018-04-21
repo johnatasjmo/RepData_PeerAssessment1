@@ -106,6 +106,41 @@ interval[which.max(interval$steps),]
 
 ## Imputing missing values
 
+Calculate and report the total number of missing values, fillin all missing values and create a new dataset. Make a histogram of total number of steps per day and recaclculate mean and median number of total steps per day. Compare against the first calculations.
 
+Filing missing values
+```{r}
+data_full <- data
+nas <- is.na(data_full$steps)
+avg_interval <- tapply(data_full$steps, data_full$interval, mean, na.rm=TRUE, simplify=TRUE)
+data_full$steps[nas] <- avg_interval[as.character(data_full$interval[nas])]
+```
+
+Calculating the steps
+```{r}
+steps_full <- data_full %>%
+  filter(!is.na(steps)) %>%
+  group_by(date) %>%
+  summarize(steps = sum(steps)) %>%
+  print
+```
+
+Plotting the graph
+```{r}
+ggplot(steps_full, aes(x = steps)) +
+  geom_histogram(fill = "firebrick", binwidth = 1000) +
+  labs(title = "Histogram of Steps per day, including missing values", x = "Steps per day", y = "Frequency")
+```
+
+Calculate the mean and median
+```{r}
+mean_steps_full <- mean(steps_full$steps, na.rm = TRUE)
+median_steps_full <- median(steps_full$steps, na.rm = TRUE)
+```
+
+mean_steps_full
+```{r}
+mean_steps_full
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
